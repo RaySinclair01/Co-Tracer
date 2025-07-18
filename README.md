@@ -57,41 +57,6 @@ The core methodology of Co-Tracer is centered on analyzing genomic context from 
 
 ---
 
-### Analysis Workflow
-
-```mermaid
-graph TD
-    A[Raw Reads (FASTQ)] --> B["1. QC (fastp)"];
-    B --> C[Clean Reads];
-    C --> D["2. Assembly (MEGAHIT)"];
-    D --> E[Contigs (FASTA)];
-
-    subgraph "Parallel Steps"
-        E --> F["3. Assembly QC (QUAST)"];
-        E --> G["4. Gene Prediction (Prodigal)"];
-    end
-    
-    G --> H[Proteins (FAA)];
-
-    subgraph "Annotation"
-        H --> I["5. ARG Annotation (Diamond vs CARD)"];
-        H --> J["6. MGE Annotation (HMMER vs Pfam)"];
-    end
-
-    I --> K[ARG Hits];
-    J --> L[MGE Hits];
-
-    subgraph "Integration & Analysis"
-        K --> M;
-        L --> M["7. Colocalization & Data Integration <br/> (Physical Distance Mapping, SQLite DB Creation)"];
-        M --> N["8. Host Tracing (Taxonomic Annotation) <br/> (On contigs with ARG-MGE pairs)"];
-        N --> O["9. Statistics & Visualization <br/> (Fisher's Test, Heatmaps, Bubble Plots, etc.)"];
-        O --> P[Final Reports & Figures];
-    end
-```
-
----
-
 ### Dependencies
 
 **1. Bioinformatics Tools:**
