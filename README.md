@@ -29,55 +29,54 @@ The core methodology of Co-Tracer is centered on analyzing genomic context from 
 
 ### Analysis Workflow
 
-```
-Raw Reads (FASTQ)
-      |
-      V
-1.  **QC** (fastp)
-      |
-      V
-Clean Reads
-      |
-      V
-2.  **Assembly** (MEGAHIT)
-      |
-      V
-Contigs (FASTA)
-      |
-      +------------------------+
-      |                        |
-      V                        V
-3.  **Assembly QC** (QUAST)   4. **Gene Prediction** (Prodigal)
-                               |
-                               V
-                           Proteins (FAA)
-                               |
-            +------------------+------------------+
-            |                                     |
-            V                                     V
-5. **ARG Annotation** (Diamond vs CARD)     6. **MGE Annotation** (HMMER vs Pfam)
-            |                                     |
-            V                                     V
-      ARG Hits                             MGE Hits
-            |                                     |
-            +------------------+------------------+
-                               |
-                               V
-      7. **Colocalization & Data Integration** (Python)
-          (Physical Distance Mapping, SQLite DB Creation)
-                               |
-                               V
-                  8. **Host Tracing (Taxonomic Annotation)** (CAT/BAT)
-                      (On contigs with ARG-MGE pairs)
-                               |
-                               V
-                  9. **Statistics & Visualization** (Python)
-                  (Fisher's Test, Heatmaps, Bubble Plots, etc.)
-                               |
-                               V
-                        Final Reports & Figures
-```
+```mermaid
+graph TD;
+    %% 定义节点 (Node Definitions)
+    A[Raw Reads (FASTQ)];
+    B["1. <b>QC</b> (fastp)"];
+    C[Clean Reads];
+    D["2. <b>Assembly</b> (MEGAHIT)"];
+    E[Contigs (FASTA)];
+    F["3. <b>Assembly QC</b> (QUAST)"];
+    G["4. <b>Gene Prediction</b> (Prodigal)"];
+    H[Proteins (FAA)];
+    I["5. <b>ARG Annotation</b> (Diamond vs CARD)"];
+    J["6. <b>MGE Annotation</b> (HMMER vs Pfam)"];
+    K[ARG Hits];
+    L[MGE Hits];
+    M["7. <b>Colocalization & Data Integration</b><br/>(Physical Distance Mapping, SQLite DB Creation)"];
+    N["8. <b>Host Tracing (Taxonomic Annotation)</b><br/>(On contigs with ARG-MGE pairs)"];
+    O["9. <b>Statistics & Visualization</b><br/>(Fisher's Test, Heatmaps, Bubble Plots, etc.)"];
+    P[Final Reports & Figures];
 
+    %% 定义连接 (Link Definitions)
+    A --> B;
+    B --> C;
+    C --> D;
+    D --> E;
+    
+    E --> F;
+    E --> G;
+    
+    G --> H;
+    
+    H --> I;
+    H --> J;
+    
+    I --> K;
+    J --> L;
+    
+    K --> M;
+    L --> M;
+    
+    M --> N;
+    N --> O;
+    O --> P;
+
+    %% 为节点添加样式 (可选)
+    style F fill:#f9f,stroke:#333,stroke-width:2px
+    style K fill:#ccf,stroke:#333,stroke-width:2px
+    style L fill:#ccf,stroke:#333,stroke-width:2px
 ---
 
 ### Dependencies
