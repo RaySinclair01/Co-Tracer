@@ -60,53 +60,34 @@ The core methodology of Co-Tracer is centered on analyzing genomic context from 
 ### Analysis Workflow
 
 ```mermaid
-graph TD;
-    %% 定义节点 (Node Definitions)
-    A[Raw Reads (FASTQ)];
-    B["1. <b>QC</b> (fastp)"];
-    C[Clean Reads];
-    D["2. <b>Assembly</b> (MEGAHIT)"];
-    E[Contigs (FASTA)];
-    F["3. <b>Assembly QC</b> (QUAST)"];
-    G["4. <b>Gene Prediction</b> (Prodigal)"];
-    H[Proteins (FAA)];
-    I["5. <b>ARG Annotation</b> (Diamond vs CARD)"];
-    J["6. <b>MGE Annotation</b> (HMMER vs Pfam)"];
-    K[ARG Hits];
-    L[MGE Hits];
-    M["7. <b>Colocalization & Data Integration</b><br/>(Physical Distance Mapping, SQLite DB Creation)"];
-    N["8. <b>Host Tracing (Taxonomic Annotation)</b><br/>(On contigs with ARG-MGE pairs)"];
-    O["9. <b>Statistics & Visualization</b><br/>(Fisher's Test, Heatmaps, Bubble Plots, etc.)"];
-    P[Final Reports & Figures];
+graph TD
+    A[Raw Reads (FASTQ)] --> B["1. QC (fastp)"];
+    B --> C[Clean Reads];
+    C --> D["2. Assembly (MEGAHIT)"];
+    D --> E[Contigs (FASTA)];
 
-    %% 定义连接 (Link Definitions)
-    A --> B;
-    B --> C;
-    C --> D;
-    D --> E;
+    subgraph "Parallel Steps"
+        E --> F["3. Assembly QC (QUAST)"];
+        E --> G["4. Gene Prediction (Prodigal)"];
+    end
     
-    E --> F;
-    E --> G;
-    
-    G --> H;
-    
-    H --> I;
-    H --> J;
-    
-    I --> K;
-    J --> L;
-    
-    K --> M;
-    L --> M;
-    
-    M --> N;
-    N --> O;
-    O --> P;
+    G --> H[Proteins (FAA)];
 
-    %% 为节点添加样式 (可选)
-    style F fill:#f9f,stroke:#333,stroke-width:2px
-    style K fill:#ccf,stroke:#333,stroke-width:2px
-    style L fill:#ccf,stroke:#333,stroke-width:2px
+    subgraph "Annotation"
+        H --> I["5. ARG Annotation (Diamond vs CARD)"];
+        H --> J["6. MGE Annotation (HMMER vs Pfam)"];
+    end
+
+    I --> K[ARG Hits];
+    J --> L[MGE Hits];
+
+    subgraph "Integration & Analysis"
+        K --> M;
+        L --> M["7. Colocalization & Data Integration <br/> (Physical Distance Mapping, SQLite DB Creation)"];
+        M --> N["8. Host Tracing (Taxonomic Annotation) <br/> (On contigs with ARG-MGE pairs)"];
+        N --> O["9. Statistics & Visualization <br/> (Fisher's Test, Heatmaps, Bubble Plots, etc.)"];
+        O --> P[Final Reports & Figures];
+    end
 ```
 
 ---
