@@ -4,9 +4,7 @@ An Assembly-Based Pipeline for Colocalization Analysis and Host Tracing
 ## 🏢 Institution
 
 This project was developed at the:  
-a Hunan Provincial University Key Laboratory for Environmental and Ecological Health, Hunan Provincial University Key Laboratory for Environmental Behavior and Control Principle of New Pollutants, College of Environment and Resources, Xiangtan University, Xiangtan 411105, China
-
-b National Center for Applied Mathematics in Hunan, the Key Laboratory of Intelligent Computing and Information Processing of the Ministry of Education, at School of Mathematics and Computational Science, Xiangtan University, Xiangtan 411105, China
+Hunan Provincial University Key Laboratory for Environmental and Ecological Health, Hunan Provincial University Key Laboratory for Environmental Behavior and Control Principle of New Pollutants, College of Environment and Resources, Xiangtan University, Xiangtan 411105, China
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Language](https://img.shields.io/badge/Language-Bash%20%26%20Python-blue.svg)]()
